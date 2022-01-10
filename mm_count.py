@@ -9,7 +9,6 @@ state
 Source: https://github.com/databricks/LearningSparkV2
 """
 
-import sys
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
 from pyspark.sql.functions import count
@@ -23,8 +22,10 @@ def get_session() -> SparkSession:
 
 
 def read_or_load_data(spark: SparkSession, file_path: str) -> DataFrame:
+    """Load the data from the file and return a Spark's DataFrame object
     # * Format by inferring the schema
     # * Specify that the file contains a header
+    """
     return (
         spark.read.format("csv")
         .option("header", "true")
@@ -75,7 +76,7 @@ def count_by_specific_state(spark: SparkSession, df: DataFrame, state: str) -> N
     count_df.show(n=10, truncate=False)
 
 
-if __name__ == "__main__":
+def main():
     file_dir = "data/mnm_dataset.csv"
     # 1. Build a SparkSession
     spark = get_session()
@@ -87,3 +88,7 @@ if __name__ == "__main__":
     count_by_specific_state(spark, mnm_df, state="TX")
     # 4. Stop the SparkSession
     spark.stop()
+
+
+if __name__ == "__main__":
+    main()
