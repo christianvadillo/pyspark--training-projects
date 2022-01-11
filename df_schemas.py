@@ -3,6 +3,8 @@ DataFrames are like distributed in-memory tables with named columns and schemas.
 DataFrames are immutable and Spark keeps a lineage of all transformations.
 The following example shows how to create a DataFrame from a list of tuples defining
 a schema using Data Definition Language (DDL).
+# Source: https://github.com/databricks/LearningSparkV2/tree/master/chapter3
+
 """
 
 from pyspark.sql import SparkSession
@@ -39,6 +41,9 @@ def create_dataframe_and_print():
     # Print the schema used by Spark to process the DataFrame
     print("Spark Schema:")
     print(df.printSchema())
+
+    # To reuse the schema in another DataFrame, we can use the same schema
+    used_schema = df.schema()
 
 
 if __name__ == "__main__":
