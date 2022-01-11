@@ -4,6 +4,8 @@ Read data from a JSON file into a Spark DataFrame using a defined schema.
 
 """
 from pyspark.sql import SparkSession
+from pyspark.sql.dataframe import DataFrame
+
 from pyspark.sql.types import (
     IntegerType,
     StringType,
@@ -13,7 +15,7 @@ from pyspark.sql.types import (
 )
 
 
-def create_dataframe_from_json(file: str) -> None:
+def create_dataframe_from_json(file: str) -> DataFrame:
     # 1. Create a SparkSession
     spark = SparkSession.builder.appName("ReadJson").getOrCreate()
 
@@ -38,6 +40,8 @@ def create_dataframe_from_json(file: str) -> None:
 
     # 5. Print the schema used by Spark to process the DataFrame
     print(df.printSchema())
+
+    return df
 
 
 if __name__ == "__main__":
